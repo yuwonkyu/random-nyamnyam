@@ -21,35 +21,72 @@ const KAKAOPAY_URL = 'https://qr.kakaopay.com/FQKB2yNrE';
 
 const { width } = Dimensions.get('window');
 
-// 🍱 슬라임 캐릭터 데이터
+// 🍱 슬라임 캐릭터 데이터 (카테고리 추가)
 const SLIMES = [
-  { id: 'a1', name: '초밥', emoji: '🍣', image: require('./assets/slimes/a1_sushi.png') },
-  { id: 'a2', name: '파스타', emoji: '🍝', image: require('./assets/slimes/a2_pasta.png') },
-  { id: 'a3', name: '삼겹살', emoji: '🥓', image: require('./assets/slimes/a3_samgyeopsal.png') },
-  { id: 'a4', name: '커피', emoji: '☕', image: require('./assets/slimes/a4_coffee.png') },
-  { id: 'a5', name: '아이스크림', emoji: '🍦', image: require('./assets/slimes/a5_icecream.png') },
-  { id: 'b1', name: '피자', emoji: '🍕', image: require('./assets/slimes/b1_pizza.png') },
-  { id: 'b2', name: '치킨', emoji: '🍗', image: require('./assets/slimes/b2_chicken.png') },
-  { id: 'b3', name: '떡볶이', emoji: '🌶️', image: require('./assets/slimes/b3_tteokbokki.png') },
-  { id: 'b4', name: '라멘', emoji: '🍜', image: require('./assets/slimes/b4_ramen.png') },
-  { id: 'b5', name: '짜장면', emoji: '🍲', image: require('./assets/slimes/b5_jjajang.png') },
-  { id: 'c1', name: '비빔밥', emoji: '🥗', image: require('./assets/slimes/c1-bibimbab.png') },
+  { id: 'a1', name: '초밥', emoji: '🍣', category: '음식', image: require('./assets/slimes/a1_sushi.png') },
+  { id: 'a2', name: '파스타', emoji: '🍝', category: '음식', image: require('./assets/slimes/a2_pasta.png') },
+  { id: 'a3', name: '삼겹살', emoji: '🥓', category: '음식', image: require('./assets/slimes/a3_samgyeopsal.png') },
+  { id: 'a4', name: '커피', emoji: '☕', category: '디저트', image: require('./assets/slimes/a4_coffee.png') },
+  { id: 'a5', name: '아이스크림', emoji: '🍦', category: '디저트', image: require('./assets/slimes/a5_icecream.png') },
+  { id: 'b1', name: '피자', emoji: '🍕', category: '음식', image: require('./assets/slimes/b1_pizza.png') },
+  { id: 'b2', name: '치킨', emoji: '🍗', category: '음식', image: require('./assets/slimes/b2_chicken.png') },
+  { id: 'b3', name: '떡볶이', emoji: '🌶️', category: '음식', image: require('./assets/slimes/b3_tteokbokki.png') },
+  { id: 'b4', name: '라멘', emoji: '🍜', category: '음식', image: require('./assets/slimes/b4_ramen.png') },
+  { id: 'b5', name: '짜장면', emoji: '🍲', category: '음식', image: require('./assets/slimes/b5_jjajang.png') },
+  { id: 'c1', name: '비빔밥', emoji: '🥗', category: '음식', image: require('./assets/slimes/c1-bibimbab.png') },
+  { id: 'd01', name: '김밥', emoji: '🍙', category: '음식', image: require('./assets/slimes/d01_gimbap.png') },
+  { id: 'd02', name: '순대', emoji: '🌭', category: '음식', image: require('./assets/slimes/d02_soondae.png') },
+  { id: 'd03', name: '튀김', emoji: '🍤', category: '음식', image: require('./assets/slimes/d03_twigim.png') },
+  { id: 'd04', name: '우동', emoji: '🍜', category: '음식', image: require('./assets/slimes/d04_udon.png') },
+  { id: 'd05', name: '샌드위치', emoji: '🥪', category: '음식', image: require('./assets/slimes/d05_sandwich.png') },
+  { id: 'd06', name: '라면', emoji: '🍜', category: '음식', image: require('./assets/slimes/d06_ramyeon.png') },
+  { id: 'd07', name: '곱창', emoji: '🥩', category: '음식', image: require('./assets/slimes/d07_gopchang.png') },
+  { id: 'd08', name: '보쌈', emoji: '🥬', category: '음식', image: require('./assets/slimes/d08_bossam.png') },
+  { id: 'd09', name: '짬뽕', emoji: '🍲', category: '음식', image: require('./assets/slimes/d09_jjambbong.png') },
+  { id: 'd10', name: '탕수육', emoji: '🍖', category: '음식', image: require('./assets/slimes/d10_tangsuyuk.png') },
+  { id: 'd11', name: '식빵', emoji: '🍞', category: '디저트', image: require('./assets/slimes/d11_sikppang.png') },
+  { id: 'd12', name: '만두', emoji: '🥟', category: '음식', image: require('./assets/slimes/d12_mandu.png') },
+  { id: 'd13', name: '마라탕', emoji: '🌶️', category: '음식', image: require('./assets/slimes/d13_maratang.png') },
+  { id: 'd14', name: '마라샹궈', emoji: '🥘', category: '음식', image: require('./assets/slimes/d14_marashangguo.png') },
+  { id: 'd15', name: '솜사탕', emoji: '🍭', category: '디저트', image: require('./assets/slimes/d15_솜사탕.png') },
+  { id: 'd16', name: '쌀국수', emoji: '🍜', category: '음식', image: require('./assets/slimes/d16_ssalnoodle.png') },
+  { id: 'd17', name: '김치볶음밥', emoji: '🍳', category: '음식', image: require('./assets/slimes/d17_kimchifry.png') },
+  { id: 'e01', name: '불고기', emoji: '🥩', category: '음식', image: require('./assets/slimes/e01_bulgogi.png') },
+  { id: 'e02', name: '냉면', emoji: '🍜', category: '음식', image: require('./assets/slimes/e02_naengmyeon.png') },
+  { id: 'e03', name: '된장찌개', emoji: '🍲', category: '음식', image: require('./assets/slimes/e03_doenjang.png') },
+  { id: 'e04', name: '김치찌개', emoji: '🍲', category: '음식', image: require('./assets/slimes/e04_kimchijjigae.png') },
 ];
+
+const TABS = ['전체', '음식', '디저트'];
 
 export default function App() {
   const [current, setCurrent] = useState(SLIMES[0]);
   const [isPicking, setIsPicking] = useState(false);
+  const [activeTab, setActiveTab] = useState('전체');
 
   // 애니메이션 값들
   const scaleAnim = useRef(new Animated.Value(1)).current;
   const bounceAnim = useRef(new Animated.Value(0)).current;
   const fadeAnim = useRef(new Animated.Value(1)).current;
   const shakeAnim = useRef(new Animated.Value(0)).current;
-  const bgColorAnim = useRef(new Animated.Value(0)).current;
+
+  const getFilteredSlimes = () => {
+    if (activeTab === '전체') return SLIMES;
+    return SLIMES.filter((s) => s.category === activeTab);
+  };
+
+  const handleTabChange = (tab: string) => {
+    setActiveTab(tab);
+    const filtered = tab === '전체' ? SLIMES : SLIMES.filter((s) => s.category === tab);
+    if (filtered.length > 0) {
+      setCurrent(filtered[Math.floor(Math.random() * filtered.length)]);
+    }
+  };
 
   const pickRandom = () => {
     if (isPicking) return;
     setIsPicking(true);
+    const pool = getFilteredSlimes();
 
     // 흔들기 애니메이션
     Animated.sequence([
@@ -74,12 +111,11 @@ export default function App() {
         useNativeDriver: true,
       }),
     ]).start(() => {
-      // 랜덤 선택
-      const others = SLIMES.filter((s) => s.id !== current.id);
-      const next = others[Math.floor(Math.random() * others.length)];
+      const others = pool.filter((s) => s.id !== current.id);
+      const list = others.length > 0 ? others : pool;
+      const next = list[Math.floor(Math.random() * list.length)];
       setCurrent(next);
 
-      // 바운스로 등장
       Animated.parallel([
         Animated.timing(fadeAnim, { toValue: 1, duration: 100, useNativeDriver: true }),
         Animated.spring(scaleAnim, {
@@ -113,10 +149,24 @@ export default function App() {
         <Text style={styles.headerSub}>오늘 뭐 먹지?</Text>
       </View>
 
+      {/* 카테고리 탭 */}
+      <View style={styles.tabContainer}>
+        {TABS.map((tab) => (
+          <Pressable
+            key={tab}
+            style={[styles.tab, activeTab === tab && styles.tabActive]}
+            onPress={() => handleTabChange(tab)}
+          >
+            <Text style={[styles.tabText, activeTab === tab && styles.tabTextActive]}>
+              {tab}
+            </Text>
+          </Pressable>
+        ))}
+      </View>
+
       {/* 슬라임 카드 */}
       <View style={styles.cardWrapper}>
         <View style={styles.card}>
-          {/* 슬라임 이미지 */}
           <Animated.View
             style={[
               styles.slimeContainer,
@@ -137,13 +187,11 @@ export default function App() {
             />
           </Animated.View>
 
-          {/* 음식 이름 */}
           <View style={styles.nameContainer}>
             <Text style={styles.foodEmoji}>{current.emoji}</Text>
             <Text style={styles.foodName}>{current.name}</Text>
           </View>
 
-          {/* 배경 데코 도트 */}
           <View style={styles.dot1} />
           <View style={styles.dot2} />
           <View style={styles.dot3} />
@@ -164,18 +212,7 @@ export default function App() {
             {isPicking ? '뽑는 중...' : '냠냠 뽑기! 🎲'}
           </Text>
         </Pressable>
-
         <Text style={styles.hint}>버튼을 눌러서 오늘의 메뉴를 뽑아봐요</Text>
-      </View>
-
-      {/* 하단 슬라임 카운터 */}
-      <View style={styles.counter}>
-        {SLIMES.map((s) => (
-          <View
-            key={s.id}
-            style={[styles.dot, s.id === current.id && styles.dotActive]}
-          />
-        ))}
       </View>
 
       {/* 팁jar 버튼 */}
@@ -222,6 +259,36 @@ const styles = StyleSheet.create({
     color: '#FFAB9A',
     marginTop: 2,
     fontWeight: '500',
+  },
+
+  // 카테고리 탭
+  tabContainer: {
+    flexDirection: 'row',
+    backgroundColor: '#FFE8E4',
+    borderRadius: 20,
+    padding: 4,
+    marginBottom: 4,
+  },
+  tab: {
+    paddingVertical: 8,
+    paddingHorizontal: 20,
+    borderRadius: 16,
+  },
+  tabActive: {
+    backgroundColor: '#FF6B6B',
+    shadowColor: '#FF6B6B',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 3,
+  },
+  tabText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#FFAB9A',
+  },
+  tabTextActive: {
+    color: '#FFFFFF',
   },
 
   // 카드
@@ -339,23 +406,6 @@ const styles = StyleSheet.create({
     color: '#FFAB9A',
     textAlign: 'center',
     marginTop: 12,
-  },
-
-  // 도트 인디케이터
-  counter: {
-    flexDirection: 'row',
-    marginTop: 16,
-  },
-  dot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: '#FFD5CC',
-    marginHorizontal: 3,
-  },
-  dotActive: {
-    backgroundColor: '#FF6B6B',
-    width: 18,
   },
 
   // 팁jar
