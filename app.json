@@ -28,6 +28,14 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "plugins": [
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-6359377859402977~9369448506"
+        }
+      ]
+    ],
     "extra": {
       "eas": {
         "projectId": "dcb7c11b-738e-4859-8cc1-51df04e9ab69"

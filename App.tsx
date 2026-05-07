@@ -5,11 +5,19 @@ import {
   Dimensions,
   Easing,
   Image,
+  Linking,
   Pressable,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+
+const ADMOB_BANNER_ID = __DEV__
+  ? TestIds.BANNER
+  : 'ca-app-pub-6359377859402977/4573701257';
+
+const KAKAOPAY_URL = 'https://qr.kakaopay.com/FQKB2yNrE';
 
 const { width } = Dimensions.get('window');
 
@@ -169,6 +177,21 @@ export default function App() {
           />
         ))}
       </View>
+
+      {/* 팁jar 버튼 */}
+      <Pressable
+        onPress={() => Linking.openURL(KAKAOPAY_URL)}
+        style={styles.tipButton}
+      >
+        <Text style={styles.tipText}>☕ 슬라임한테 밥 사주기</Text>
+      </Pressable>
+
+      {/* 배너 광고 */}
+      <BannerAd
+        unitId={ADMOB_BANNER_ID}
+        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+        requestOptions={{ requestNonPersonalizedAdsOnly: true }}
+      />
     </View>
   );
 }
@@ -333,5 +356,20 @@ const styles = StyleSheet.create({
   dotActive: {
     backgroundColor: '#FF6B6B',
     width: 18,
+  },
+
+  // 팁jar
+  tipButton: {
+    marginTop: 12,
+    paddingVertical: 8,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+    borderWidth: 1.5,
+    borderColor: '#FFAB9A',
+  },
+  tipText: {
+    fontSize: 13,
+    color: '#FF6B6B',
+    fontWeight: '600',
   },
 });
