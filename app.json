@@ -16,15 +16,23 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.kkustudio.randomnyamnyam",
+      "versionCode": 1,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/slimes/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#FFF5F0"
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "dcb7c11b-738e-4859-8cc1-51df04e9ab69"
+      }
+    },
+    "owner": "kku-studio"
   }
 }

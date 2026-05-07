@@ -25,6 +25,7 @@ const SLIMES = [
   { id: 'b3', name: '떡볶이', emoji: '🌶️', image: require('./assets/slimes/b3_tteokbokki.png') },
   { id: 'b4', name: '라멘', emoji: '🍜', image: require('./assets/slimes/b4_ramen.png') },
   { id: 'b5', name: '짜장면', emoji: '🍲', image: require('./assets/slimes/b5_jjajang.png') },
+  { id: 'c1', name: '비빔밥', emoji: '🥗', image: require('./assets/slimes/c1-bibimbab.png') },
 ];
 
 export default function App() {
