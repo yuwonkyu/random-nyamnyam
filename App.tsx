@@ -48,7 +48,7 @@ const SLIMES = [
   { id: 'd12', name: '만두', emoji: '🥟', category: '음식', image: require('./assets/slimes/d12_mandu.png') },
   { id: 'd13', name: '마라탕', emoji: '🌶️', category: '음식', image: require('./assets/slimes/d13_maratang.png') },
   { id: 'd14', name: '마라샹궈', emoji: '🥘', category: '음식', image: require('./assets/slimes/d14_marashangguo.png') },
-  { id: 'd15', name: '솜사탕', emoji: '🍭', category: '디저트', image: require('./assets/slimes/d15_솜사탕.png') },
+  { id: 'd15', name: '솜사탕', emoji: '🍭', category: '디저트', image: require('./assets/slimes/d15_somtang.png') },
   { id: 'd16', name: '쌀국수', emoji: '🍜', category: '음식', image: require('./assets/slimes/d16_ssalnoodle.png') },
   { id: 'd17', name: '김치볶음밥', emoji: '🍳', category: '음식', image: require('./assets/slimes/d17_kimchifry.png') },
   { id: 'e01', name: '불고기', emoji: '🥩', category: '음식', image: require('./assets/slimes/e01_bulgogi.png') },
