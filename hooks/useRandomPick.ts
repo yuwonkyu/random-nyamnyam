@@ -50,7 +50,6 @@ export function useRandomPick({ sound, haptic, animation }: Options) {
     ]).start(() => {
       const next = pool[Math.floor(Math.random() * pool.length)];
       setCurrent(next);
-      hapticTick(haptic);
 
       Animated.parallel([
         Animated.timing(fadeAnim, { toValue: 1, duration: 100, useNativeDriver: true }),
