@@ -3,18 +3,25 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 type Props = {
   sound: boolean;
   haptic: boolean;
+  animation: boolean;
   onToggleSound: () => void;
   onToggleHaptic: () => void;
+  onToggleAnimation: () => void;
 };
 
 export function SettingsToggles({
   sound,
   haptic,
+  animation,
   onToggleSound,
   onToggleHaptic,
+  onToggleAnimation,
 }: Props) {
   return (
     <View style={styles.row}>
+      <Pressable style={styles.btn} onPress={onToggleAnimation} hitSlop={8}>
+        <Text style={styles.icon}>{animation ? '🎰' : '⚡'}</Text>
+      </Pressable>
       <Pressable style={styles.btn} onPress={onToggleSound} hitSlop={8}>
         <Text style={styles.icon}>{sound ? '🔊' : '🔇'}</Text>
       </Pressable>

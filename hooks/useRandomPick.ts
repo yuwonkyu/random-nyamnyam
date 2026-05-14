@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Animated } from 'react-native';
+import { Animated, Easing } from 'react-native';
 import { SLIMES, Slime } from '../data/slimes';
 import { TabName } from '../constants';
 import { hapticDing, hapticTick, playDing, playRoll, stopRoll } from '../utils/feedback';
@@ -7,9 +7,10 @@ import { hapticDing, hapticTick, playDing, playRoll, stopRoll } from '../utils/f
 type Options = {
   sound: boolean;
   haptic: boolean;
+  animation: boolean;
 };
 
-export function useRandomPick({ sound, haptic }: Options) {
+export function useRandomPick({ sound, haptic, animation }: Options) {
   const [current, setCurrent] = useState<Slime>(SLIMES[0]);
   const [isPicking, setIsPicking] = useState(false);
   const [activeTab, setActiveTabState] = useState<TabName>('전체');
@@ -30,13 +31,42 @@ export function useRandomPick({ sound, haptic }: Options) {
     }
   };
 
-  const pickRandom = () => {
-    if (isPicking) return;
-    const pool = getPool(activeTab);
-    if (pool.length === 0) return;
-    setIsPicking(true);
+  const pickSimple = (pool: Slime[]) => {
+    // 짧은 흔들기 + 즉시 교체
+    Animated.sequence([
+      Animated.timing(shakeAnim, { toValue: 8, duration: 50, useNativeDriver: true }),
+      Animated.timing(shakeAnim, { toValue: -8, duration: 50, useNativeDriver: true }),
+      Animated.timing(shakeAnim, { toValue: 0, duration: 50, useNativeDriver: true }),
+    ]).start();
 
-    // 룰렛 굴림 사운드 한 번 재생 (도르르르)
+    Animated.sequence([
+      Animated.timing(scaleAnim, {
+        toValue: 0.85,
+        duration: 100,
+        easing: Easing.out(Easing.cubic),
+        useNativeDriver: true,
+      }),
+      Animated.timing(fadeAnim, { toValue: 0, duration: 60, useNativeDriver: true }),
+    ]).start(() => {
+      const next = pool[Math.floor(Math.random() * pool.length)];
+      setCurrent(next);
+      hapticTick(haptic);
+
+      Animated.parallel([
+        Animated.timing(fadeAnim, { toValue: 1, duration: 100, useNativeDriver: true }),
+        Animated.spring(scaleAnim, {
+          toValue: 1,
+          friction: 4,
+          tension: 200,
+          useNativeDriver: true,
+        }),
+      ]).start(() => {
+        setIsPicking(false);
+      });
+    });
+  };
+
+  const pickRoulette = (pool: Slime[]) => {
     playRoll(sound);
 
     Animated.sequence([
@@ -51,20 +81,11 @@ export function useRandomPick({ sound, haptic }: Options) {
     const tick = () => {
       const next = pool[Math.floor(Math.random() * pool.length)];
       setCurrent(next);
-
       hapticTick(haptic);
 
       Animated.sequence([
-        Animated.timing(scaleAnim, {
-          toValue: 0.92,
-          duration: 40,
-          useNativeDriver: true,
-        }),
-        Animated.timing(scaleAnim, {
-          toValue: 1,
-          duration: 40,
-          useNativeDriver: true,
-        }),
+        Animated.timing(scaleAnim, { toValue: 0.92, duration: 40, useNativeDriver: true }),
+        Animated.timing(scaleAnim, { toValue: 1, duration: 40, useNativeDriver: true }),
       ]).start();
 
       step++;
@@ -83,11 +104,7 @@ export function useRandomPick({ sound, haptic }: Options) {
             useNativeDriver: true,
           }),
           Animated.sequence([
-            Animated.timing(bounceAnim, {
-              toValue: -24,
-              duration: 200,
-              useNativeDriver: true,
-            }),
+            Animated.timing(bounceAnim, { toValue: -24, duration: 200, useNativeDriver: true }),
             Animated.spring(bounceAnim, {
               toValue: 0,
               friction: 5,
@@ -102,6 +119,19 @@ export function useRandomPick({ sound, haptic }: Options) {
     };
 
     setTimeout(tick, intervals[0]);
+  };
+
+  const pickRandom = () => {
+    if (isPicking) return;
+    const pool = getPool(activeTab);
+    if (pool.length === 0) return;
+    setIsPicking(true);
+
+    if (animation) {
+      pickRoulette(pool);
+    } else {
+      pickSimple(pool);
+    }
   };
 
   const animatedStyle = {
