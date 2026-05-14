@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Animated, Easing } from 'react-native';
+import { Animated } from 'react-native';
 import { SLIMES, Slime } from '../data/slimes';
 import { TabName } from '../constants';
 
@@ -26,56 +26,71 @@ export function useRandomPick() {
 
   const pickRandom = () => {
     if (isPicking) return;
-    setIsPicking(true);
     const pool = getPool(activeTab);
+    if (pool.length === 0) return;
+    setIsPicking(true);
 
+    // 초기 흔들기
     Animated.sequence([
-      Animated.timing(shakeAnim, { toValue: 10, duration: 60, useNativeDriver: true }),
-      Animated.timing(shakeAnim, { toValue: -10, duration: 60, useNativeDriver: true }),
-      Animated.timing(shakeAnim, { toValue: 8, duration: 60, useNativeDriver: true }),
-      Animated.timing(shakeAnim, { toValue: -8, duration: 60, useNativeDriver: true }),
-      Animated.timing(shakeAnim, { toValue: 0, duration: 60, useNativeDriver: true }),
+      Animated.timing(shakeAnim, { toValue: 8, duration: 50, useNativeDriver: true }),
+      Animated.timing(shakeAnim, { toValue: -8, duration: 50, useNativeDriver: true }),
+      Animated.timing(shakeAnim, { toValue: 0, duration: 50, useNativeDriver: true }),
     ]).start();
 
-    Animated.sequence([
-      Animated.timing(scaleAnim, {
-        toValue: 0.8,
-        duration: 180,
-        easing: Easing.out(Easing.cubic),
-        useNativeDriver: true,
-      }),
-      Animated.timing(fadeAnim, {
-        toValue: 0,
-        duration: 80,
-        useNativeDriver: true,
-      }),
-    ]).start(() => {
-      const others = pool.filter((s) => s.id !== current.id);
-      const list = others.length > 0 ? others : pool;
-      const next = list[Math.floor(Math.random() * list.length)];
+    // 룰렛: 점점 느려지는 간격으로 이미지 교체
+    const intervals = [60, 60, 70, 80, 90, 110, 130, 160, 200, 250, 320, 420];
+    let step = 0;
+
+    const tick = () => {
+      const next = pool[Math.floor(Math.random() * pool.length)];
       setCurrent(next);
 
-      Animated.parallel([
-        Animated.timing(fadeAnim, { toValue: 1, duration: 100, useNativeDriver: true }),
-        Animated.spring(scaleAnim, {
-          toValue: 1,
-          friction: 4,
-          tension: 200,
+      // 매 틱마다 살짝 통통
+      Animated.sequence([
+        Animated.timing(scaleAnim, {
+          toValue: 0.92,
+          duration: 40,
           useNativeDriver: true,
         }),
-        Animated.sequence([
-          Animated.timing(bounceAnim, { toValue: -20, duration: 200, useNativeDriver: true }),
-          Animated.spring(bounceAnim, {
-            toValue: 0,
-            friction: 5,
-            tension: 300,
+        Animated.timing(scaleAnim, {
+          toValue: 1,
+          duration: 40,
+          useNativeDriver: true,
+        }),
+      ]).start();
+
+      step++;
+      if (step < intervals.length) {
+        setTimeout(tick, intervals[step]);
+      } else {
+        // 최종 선택 — 큰 바운스
+        Animated.parallel([
+          Animated.spring(scaleAnim, {
+            toValue: 1,
+            friction: 3,
+            tension: 200,
             useNativeDriver: true,
           }),
-        ]),
-      ]).start(() => {
-        setIsPicking(false);
-      });
-    });
+          Animated.sequence([
+            Animated.timing(bounceAnim, {
+              toValue: -24,
+              duration: 200,
+              useNativeDriver: true,
+            }),
+            Animated.spring(bounceAnim, {
+              toValue: 0,
+              friction: 5,
+              tension: 300,
+              useNativeDriver: true,
+            }),
+          ]),
+        ]).start(() => {
+          setIsPicking(false);
+        });
+      }
+    };
+
+    setTimeout(tick, intervals[0]);
   };
 
   const animatedStyle = {
