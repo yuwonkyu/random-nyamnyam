@@ -2,8 +2,14 @@ import { useRef, useState } from 'react';
 import { Animated } from 'react-native';
 import { SLIMES, Slime } from '../data/slimes';
 import { TabName } from '../constants';
+import { hapticDing, hapticTick, playDing, playTick } from '../utils/feedback';
 
-export function useRandomPick() {
+type Options = {
+  sound: boolean;
+  haptic: boolean;
+};
+
+export function useRandomPick({ sound, haptic }: Options) {
   const [current, setCurrent] = useState<Slime>(SLIMES[0]);
   const [isPicking, setIsPicking] = useState(false);
   const [activeTab, setActiveTabState] = useState<TabName>('전체');
@@ -30,14 +36,12 @@ export function useRandomPick() {
     if (pool.length === 0) return;
     setIsPicking(true);
 
-    // 초기 흔들기
     Animated.sequence([
       Animated.timing(shakeAnim, { toValue: 8, duration: 50, useNativeDriver: true }),
       Animated.timing(shakeAnim, { toValue: -8, duration: 50, useNativeDriver: true }),
       Animated.timing(shakeAnim, { toValue: 0, duration: 50, useNativeDriver: true }),
     ]).start();
 
-    // 룰렛: 점점 느려지는 간격으로 이미지 교체
     const intervals = [60, 60, 70, 80, 90, 110, 130, 160, 200, 250, 320, 420];
     let step = 0;
 
@@ -45,7 +49,9 @@ export function useRandomPick() {
       const next = pool[Math.floor(Math.random() * pool.length)];
       setCurrent(next);
 
-      // 매 틱마다 살짝 통통
+      hapticTick(haptic);
+      playTick(sound);
+
       Animated.sequence([
         Animated.timing(scaleAnim, {
           toValue: 0.92,
@@ -63,7 +69,9 @@ export function useRandomPick() {
       if (step < intervals.length) {
         setTimeout(tick, intervals[step]);
       } else {
-        // 최종 선택 — 큰 바운스
+        hapticDing(haptic);
+        playDing(sound);
+
         Animated.parallel([
           Animated.spring(scaleAnim, {
             toValue: 1,
