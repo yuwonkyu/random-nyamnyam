@@ -28,7 +28,11 @@ export default function App() {
     setActiveTab,
     pickRandom,
     animatedStyle,
-  } = useRandomPick({ sound: settings.sound, haptic: settings.haptic });
+  } = useRandomPick({
+    sound: settings.sound,
+    haptic: settings.haptic,
+    animation: settings.animation,
+  });
 
   return (
     <View style={styles.container}>
@@ -37,8 +41,10 @@ export default function App() {
       <SettingsToggles
         sound={settings.sound}
         haptic={settings.haptic}
+        animation={settings.animation}
         onToggleSound={settings.toggleSound}
         onToggleHaptic={settings.toggleHaptic}
+        onToggleAnimation={settings.toggleAnimation}
       />
 
       {/* 헤더 */}
