@@ -10,13 +10,17 @@ import {
   View,
 } from 'react-native';
 import { BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
+import { ActionButtons } from './components/ActionButtons';
 import { CategoryTabs } from './components/CategoryTabs';
+import { SettingsToggles } from './components/SettingsToggles';
 import { ADMOB_BANNER_ID, COLORS, KAKAOPAY_URL } from './constants';
 import { useRandomPick } from './hooks/useRandomPick';
+import { useSettings } from './hooks/useSettings';
 
 const { width } = Dimensions.get('window');
 
 export default function App() {
+  const settings = useSettings();
   const {
     current,
     isPicking,
@@ -24,11 +28,18 @@ export default function App() {
     setActiveTab,
     pickRandom,
     animatedStyle,
-  } = useRandomPick();
+  } = useRandomPick({ sound: settings.sound, haptic: settings.haptic });
 
   return (
     <View style={styles.container}>
       <StatusBar style="dark" />
+
+      <SettingsToggles
+        sound={settings.sound}
+        haptic={settings.haptic}
+        onToggleSound={settings.toggleSound}
+        onToggleHaptic={settings.toggleHaptic}
+      />
 
       {/* 헤더 */}
       <View style={styles.header}>
@@ -58,6 +69,8 @@ export default function App() {
           <View style={styles.dot2} />
           <View style={styles.dot3} />
         </View>
+
+        <ActionButtons slime={current} disabled={isPicking} />
       </View>
 
       {/* 버튼 영역 */}
