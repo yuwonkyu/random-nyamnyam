@@ -1,19 +1,19 @@
 import { Audio } from 'expo-av';
 import * as Haptics from 'expo-haptics';
 
-let tickSound: Audio.Sound | null = null;
+let rollSound: Audio.Sound | null = null;
 let dingSound: Audio.Sound | null = null;
 let isLoading = false;
 
 async function loadSounds() {
-  if (isLoading || (tickSound && dingSound)) return;
+  if (isLoading || (rollSound && dingSound)) return;
   isLoading = true;
   try {
-    const tick = await Audio.Sound.createAsync(
-      require('../assets/sounds/tick.mp3'),
-      { volume: 0.5 }
+    const roll = await Audio.Sound.createAsync(
+      require('../assets/sounds/roll.mp3'),
+      { volume: 0.6 }
     );
-    tickSound = tick.sound;
+    rollSound = roll.sound;
     const ding = await Audio.Sound.createAsync(
       require('../assets/sounds/ding.mp3'),
       { volume: 0.7 }
@@ -26,11 +26,17 @@ async function loadSounds() {
   }
 }
 
-export async function playTick(enabled: boolean) {
+export async function playRoll(enabled: boolean) {
   if (!enabled) return;
   try {
-    if (!tickSound) await loadSounds();
-    await tickSound?.replayAsync();
+    if (!rollSound) await loadSounds();
+    await rollSound?.replayAsync();
+  } catch {}
+}
+
+export async function stopRoll() {
+  try {
+    await rollSound?.stopAsync();
   } catch {}
 }
 
