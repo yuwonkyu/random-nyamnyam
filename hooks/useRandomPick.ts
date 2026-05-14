@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { Animated } from 'react-native';
 import { SLIMES, Slime } from '../data/slimes';
 import { TabName } from '../constants';
-import { hapticDing, hapticTick, playDing, playTick } from '../utils/feedback';
+import { hapticDing, hapticTick, playDing, playRoll, stopRoll } from '../utils/feedback';
 
 type Options = {
   sound: boolean;
@@ -36,6 +36,9 @@ export function useRandomPick({ sound, haptic }: Options) {
     if (pool.length === 0) return;
     setIsPicking(true);
 
+    // 룰렛 굴림 사운드 한 번 재생 (도르르르)
+    playRoll(sound);
+
     Animated.sequence([
       Animated.timing(shakeAnim, { toValue: 8, duration: 50, useNativeDriver: true }),
       Animated.timing(shakeAnim, { toValue: -8, duration: 50, useNativeDriver: true }),
@@ -50,7 +53,6 @@ export function useRandomPick({ sound, haptic }: Options) {
       setCurrent(next);
 
       hapticTick(haptic);
-      playTick(sound);
 
       Animated.sequence([
         Animated.timing(scaleAnim, {
@@ -69,6 +71,7 @@ export function useRandomPick({ sound, haptic }: Options) {
       if (step < intervals.length) {
         setTimeout(tick, intervals[step]);
       } else {
+        stopRoll();
         hapticDing(haptic);
         playDing(sound);
 
