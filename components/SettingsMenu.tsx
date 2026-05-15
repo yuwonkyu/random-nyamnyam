@@ -43,7 +43,12 @@ export function SettingsMenu({
             value={animation}
             onValueChange={onToggleAnimation}
           />
-          <Row label="🔊 소리" value={sound} onValueChange={onToggleSound} />
+          <Row
+            label="🔊 소리"
+            value={sound}
+            onValueChange={onToggleSound}
+            disabled={!animation}
+          />
           <Row label="📳 진동" value={haptic} onValueChange={onToggleHaptic} />
         </View>
       )}
@@ -55,17 +60,20 @@ function Row({
   label,
   value,
   onValueChange,
+  disabled,
 }: {
   label: string;
   value: boolean;
   onValueChange: () => void;
+  disabled?: boolean;
 }) {
   return (
-    <View style={styles.row}>
+    <View style={[styles.row, disabled && styles.rowDisabled]}>
       <Text style={styles.rowLabel}>{label}</Text>
       <Switch
         value={value}
         onValueChange={onValueChange}
+        disabled={disabled}
         trackColor={{ false: COLORS.tabBg, true: COLORS.primary }}
         thumbColor="#FFFFFF"
       />
@@ -109,6 +117,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingVertical: 6,
     paddingHorizontal: 12,
+  },
+  rowDisabled: {
+    opacity: 0.4,
   },
   rowLabel: {
     fontSize: 14,
