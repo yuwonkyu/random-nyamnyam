@@ -1,4 +1,5 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import { Pressable, StyleSheet } from 'react-native';
 import { COLORS } from '../constants';
 import { Slime } from '../data/slimes';
 import { openKakaoMap } from '../utils/map';
@@ -11,54 +12,60 @@ type Props = {
 
 export function ActionButtons({ slime, disabled }: Props) {
   return (
-    <View style={styles.row}>
+    <>
       <Pressable
         style={({ pressed }) => [
-          styles.button,
-          pressed && styles.buttonPressed,
-          disabled && styles.buttonDisabled,
+          styles.btn,
+          styles.shareBtn,
+          pressed && styles.pressed,
+          disabled && styles.disabled,
         ]}
         onPress={() => shareSlime(slime)}
         disabled={disabled}
+        hitSlop={6}
       >
-        <Text style={styles.text}>📤 공유</Text>
+        <Feather name="share-2" size={18} color={COLORS.primary} />
       </Pressable>
+
       <Pressable
         style={({ pressed }) => [
-          styles.button,
-          pressed && styles.buttonPressed,
-          disabled && styles.buttonDisabled,
+          styles.btn,
+          styles.mapBtn,
+          pressed && styles.pressed,
+          disabled && styles.disabled,
         ]}
         onPress={() => openKakaoMap(slime.name)}
         disabled={disabled}
+        hitSlop={6}
       >
-        <Text style={styles.text}>🗺️ 근처 찾기</Text>
+        <Feather name="map-pin" size={18} color={COLORS.primary} />
       </Pressable>
-    </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-    gap: 10,
-    marginTop: 12,
-  },
-  button: {
-    paddingVertical: 10,
-    paddingHorizontal: 18,
-    borderRadius: 16,
+  btn: {
+    position: 'absolute',
+    top: 14,
+    width: 38,
+    height: 38,
+    borderRadius: 19,
     backgroundColor: COLORS.tabBg,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 5,
   },
-  buttonPressed: {
+  shareBtn: {
+    left: 14,
+  },
+  mapBtn: {
+    right: 14,
+  },
+  pressed: {
     backgroundColor: COLORS.dot3,
   },
-  buttonDisabled: {
-    opacity: 0.5,
-  },
-  text: {
-    fontSize: 13,
-    fontWeight: '600',
-    color: COLORS.primary,
+  disabled: {
+    opacity: 0.4,
   },
 });

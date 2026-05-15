@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { ActionButtons } from './components/ActionButtons';
 import { CategoryTabs } from './components/CategoryTabs';
-import { SettingsToggles } from './components/SettingsToggles';
+import { SettingsMenu } from './components/SettingsMenu';
 import { ADMOB_BANNER_ID, COLORS, KAKAOPAY_URL } from './constants';
 import { useRandomPick } from './hooks/useRandomPick';
 import { useSettings } from './hooks/useSettings';
@@ -45,7 +45,7 @@ export default function App() {
     <View style={styles.container}>
       <StatusBar style="dark" />
 
-      <SettingsToggles
+      <SettingsMenu
         sound={settings.sound}
         haptic={settings.haptic}
         animation={settings.animation}
@@ -78,12 +78,10 @@ export default function App() {
             <Text style={styles.foodName}>{current.name}</Text>
           </View>
 
-          <View style={styles.dot1} />
           <View style={styles.dot2} />
-          <View style={styles.dot3} />
-        </View>
 
-        <ActionButtons slime={current} disabled={isPicking} />
+          <ActionButtons slime={current} disabled={isPicking} />
+        </View>
       </View>
 
       {/* 버튼 영역 */}
@@ -202,15 +200,6 @@ const styles = StyleSheet.create({
   },
 
   // 배경 데코
-  dot1: {
-    position: 'absolute',
-    top: 16,
-    right: 20,
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: COLORS.dot1,
-  },
   dot2: {
     position: 'absolute',
     bottom: 20,
@@ -219,15 +208,6 @@ const styles = StyleSheet.create({
     height: 24,
     borderRadius: 12,
     backgroundColor: COLORS.dot2,
-  },
-  dot3: {
-    position: 'absolute',
-    top: 50,
-    left: 24,
-    width: 14,
-    height: 14,
-    borderRadius: 7,
-    backgroundColor: COLORS.dot3,
   },
 
   // 버튼
