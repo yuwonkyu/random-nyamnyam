@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
     top: 56,
     right: 20,
     zIndex: 100,
+    elevation: 100,
     alignItems: 'flex-end',
   },
   menuBtn: {
