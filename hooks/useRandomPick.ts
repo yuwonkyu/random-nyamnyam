@@ -50,8 +50,8 @@ export function useRandomPick({ sound, haptic, animation }: Options) {
     ]).start(() => {
       const next = pool[Math.floor(Math.random() * pool.length)];
       setCurrent(next);
-      // 진동은 룰렛 효과와 무관하게 동작
-      hapticTick(haptic);
+      // 진동은 룰렛 효과와 무관하게 동작 (빠른 모드는 확실히 느껴지는 진동)
+      hapticDing(haptic);
 
       Animated.parallel([
         Animated.timing(fadeAnim, { toValue: 1, duration: 100, useNativeDriver: true }),
