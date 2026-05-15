@@ -4,18 +4,25 @@ import {
   Dimensions,
   Image,
   Linking,
+  NativeModules,
   Pressable,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-import { BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
 import { ActionButtons } from './components/ActionButtons';
 import { CategoryTabs } from './components/CategoryTabs';
 import { SettingsToggles } from './components/SettingsToggles';
 import { ADMOB_BANNER_ID, COLORS, KAKAOPAY_URL } from './constants';
 import { useRandomPick } from './hooks/useRandomPick';
 import { useSettings } from './hooks/useSettings';
+
+const MobileAdsModule = NativeModules.RNGoogleMobileAdsModule
+  ? require('react-native-google-mobile-ads')
+  : null;
+
+const BannerAd = MobileAdsModule?.BannerAd;
+const BannerAdSize = MobileAdsModule?.BannerAdSize;
 
 const { width } = Dimensions.get('window');
 
@@ -105,11 +112,13 @@ export default function App() {
       </Pressable>
 
       {/* 배너 광고 */}
-      <BannerAd
-        unitId={ADMOB_BANNER_ID}
-        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-        requestOptions={{ requestNonPersonalizedAdsOnly: true }}
-      />
+      {BannerAd && BannerAdSize ? (
+        <BannerAd
+          unitId={ADMOB_BANNER_ID}
+          size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+          requestOptions={{ requestNonPersonalizedAdsOnly: true }}
+        />
+      ) : null}
     </View>
   );
 }

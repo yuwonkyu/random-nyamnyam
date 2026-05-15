@@ -1,7 +1,5 @@
-import { TestIds } from 'react-native-google-mobile-ads';
-
 export const ADMOB_BANNER_ID = __DEV__
-  ? TestIds.BANNER
+  ? 'ca-app-pub-3940256099942544/6300978111'
   : 'ca-app-pub-6359377859402977/4573701257';
 
 export const KAKAOPAY_URL = 'https://qr.kakaopay.com/FQKB2yNrE';

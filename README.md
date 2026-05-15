@@ -32,7 +32,6 @@ npm install
 ```bash
 npm start          # Expo 개발 서버
 npm run android    # 안드로이드 실행
-npm run ios        # iOS 실행
 npm run web        # 웹 실행
 ```
 
@@ -55,7 +54,6 @@ EAS Build를 사용합니다.
 
 ```bash
 eas build --platform android
-eas build --platform ios
 ```
 
 ## 📄 라이선스 / 저작권

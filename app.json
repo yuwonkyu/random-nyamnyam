@@ -12,9 +12,6 @@
       "resizeMode": "contain",
       "backgroundColor": "#FFF5F0"
     },
-    "ios": {
-      "supportsTablet": true
-    },
     "android": {
       "package": "com.kkustudio.randomnyamnyam",
       "versionCode": 1,
