@@ -39,6 +39,11 @@ export function useSettings() {
     const next = !animation;
     setAnimation(next);
     AsyncStorage.setItem(KEY_ANIMATION, String(next));
+    // 룰렛 효과를 끄면 소리도 자동으로 off (룰렛 없으면 소리도 없음)
+    if (!next) {
+      setSound(false);
+      AsyncStorage.setItem(KEY_SOUND, 'false');
+    }
   };
 
   return {
