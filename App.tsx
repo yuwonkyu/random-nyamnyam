@@ -45,15 +45,6 @@ export default function App() {
     <View style={styles.container}>
       <StatusBar style="dark" />
 
-      <SettingsMenu
-        sound={settings.sound}
-        haptic={settings.haptic}
-        animation={settings.animation}
-        onToggleSound={settings.toggleSound}
-        onToggleHaptic={settings.toggleHaptic}
-        onToggleAnimation={settings.toggleAnimation}
-      />
-
       {/* 헤더 */}
       <View style={styles.header}>
         <Text style={styles.headerTitle}>랜덤냠냠 🍱</Text>
@@ -117,6 +108,16 @@ export default function App() {
           requestOptions={{ requestNonPersonalizedAdsOnly: true }}
         />
       ) : null}
+
+      {/* 설정 메뉴 — 항상 최상단에 렌더링 */}
+      <SettingsMenu
+        sound={settings.sound}
+        haptic={settings.haptic}
+        animation={settings.animation}
+        onToggleSound={settings.toggleSound}
+        onToggleHaptic={settings.toggleHaptic}
+        onToggleAnimation={settings.toggleAnimation}
+      />
     </View>
   );
 }
