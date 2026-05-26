@@ -1,4 +1,4 @@
-export type SlimeCategory = '음식' | '디저트';
+export type SlimeCategory = '음식' | '디저트' | '음료';
 
 export type Slime = {
   id: string;
@@ -63,4 +63,28 @@ export const SLIMES: Slime[] = [
   { id: 'e24', name: '커리', emoji: '🍛', category: '음식', image: require('../assets/slimes/e24_curry.png') },
   { id: 'e25', name: '떡국', emoji: '🍜', category: '음식', image: require('../assets/slimes/e25_tteokguk.png') },
   { id: 'e26', name: '제육볶음', emoji: '🌶️', category: '음식', image: require('../assets/slimes/e26_jeyukbokkeum.png') },
+  // 디저트 추가
+  { id: 'f01', name: '팥빙수', emoji: '🧊', category: '디저트', image: require('../assets/slimes/f01_patbingsu.png') },
+  { id: 'f02', name: '마카롱', emoji: '🍬', category: '디저트', image: require('../assets/slimes/f02_macaron.png') },
+  { id: 'f03', name: '도넛', emoji: '🍩', category: '디저트', image: require('../assets/slimes/f03_donut.png') },
+  { id: 'f04', name: '타르트', emoji: '🥧', category: '디저트', image: require('../assets/slimes/f04_tart.png') },
+  { id: 'f05', name: '핫도그', emoji: '🌭', category: '디저트', image: require('../assets/slimes/f05_hotdog.png') },
+  { id: 'f06', name: '초콜릿', emoji: '🍫', category: '디저트', image: require('../assets/slimes/f06_chocolate.png') },
+  { id: 'f07', name: '요거트아이스크림', emoji: '🍦', category: '디저트', image: require('../assets/slimes/f07_yogurt_icecream.png') },
+  { id: 'f08', name: '푸딩', emoji: '🍮', category: '디저트', image: require('../assets/slimes/f08_pudding.png') },
+  { id: 'f09', name: '티라미수', emoji: '🍰', category: '디저트', image: require('../assets/slimes/f09_tiramisu.png') },
+  { id: 'f10', name: '크룽지', emoji: '🥐', category: '디저트', image: require('../assets/slimes/f10_croissant.png') },
+  { id: 'f17', name: '모듬과일', emoji: '🍓', category: '디저트', image: require('../assets/slimes/f17_mixed_fruit.png') },
+  { id: 'f22', name: '민트초코', emoji: '🍃', category: '디저트', image: require('../assets/slimes/f22_mint_choco.png') },
+  // 음료 추가
+  { id: 'f11', name: '아이스아메리카노', emoji: '🧋', category: '음료', image: require('../assets/slimes/f11_ice_americano.png') },
+  { id: 'f12', name: '카페라떼', emoji: '☕', category: '음료', image: require('../assets/slimes/f12_cafe_latte.png') },
+  { id: 'f13', name: '초코라떼', emoji: '🍫', category: '음료', image: require('../assets/slimes/f13_choco_latte.png') },
+  { id: 'f14', name: '녹차라떼', emoji: '🍵', category: '음료', image: require('../assets/slimes/f14_greentea_latte.png') },
+  { id: 'f15', name: '요거트스무디', emoji: '🥛', category: '음료', image: require('../assets/slimes/f15_yogurt_smoothie.png') },
+  { id: 'f16', name: '딸기스무디', emoji: '🍓', category: '음료', image: require('../assets/slimes/f16_strawberry_smoothie.png') },
+  { id: 'f18', name: '밀크티', emoji: '🧋', category: '음료', image: require('../assets/slimes/f18_milk_tea.png') },
+  { id: 'f19', name: '홍차', emoji: '🍵', category: '음료', image: require('../assets/slimes/f19_black_tea.png') },
+  { id: 'f20', name: '녹차', emoji: '🍵', category: '음료', image: require('../assets/slimes/f20_green_tea.png') },
+  { id: 'f21', name: '레몬에이드', emoji: '🍋', category: '음료', image: require('../assets/slimes/f21_lemonade.png') },
 ];

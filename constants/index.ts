@@ -4,7 +4,7 @@ export const ADMOB_BANNER_ID = __DEV__
 
 export const KAKAOPAY_URL = 'https://qr.kakaopay.com/FQKB2yNrE';
 
-export const TABS = ['전체', '음식', '디저트'] as const;
+export const TABS = ['전체', '음식', '디저트', '음료'] as const;
 export type TabName = (typeof TABS)[number];
 
 export const COLORS = {
