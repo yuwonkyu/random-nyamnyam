@@ -10,6 +10,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import { useEffect } from 'react';
 import { ActionButtons } from './components/ActionButtons';
 import { CategoryTabs } from './components/CategoryTabs';
 import { SettingsMenu } from './components/SettingsMenu';
@@ -23,11 +24,18 @@ const MobileAdsModule = NativeModules.RNGoogleMobileAdsModule
 
 const BannerAd = MobileAdsModule?.BannerAd;
 const BannerAdSize = MobileAdsModule?.BannerAdSize;
+const MobileAds = MobileAdsModule?.default;
 
 const { width } = Dimensions.get('window');
 
 export default function App() {
   const settings = useSettings();
+
+  useEffect(() => {
+    MobileAds?.()
+      .initialize()
+      .catch(() => {});
+  }, []);
   const {
     current,
     isPicking,
